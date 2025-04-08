@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/charts": "^7.17.4",
+    "@mantine/core": "^7.17.4",
+    "@mantine/form": "^7.17.4",
+    "@mantine/hooks": "^7.17.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "recharts": "2"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
