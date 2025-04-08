@@ -1,26 +1,15 @@
 import { useState, useEffect } from "react";
 import { SegmentedControl, Box } from "@mantine/core";
+
 import { ResultsChart } from "./ResultsChart";
 import { ResultsTable } from "./ResultsTable";
+
 import SimulationWorker from "../workers/simulationWorker?worker";
+
 import type { SimulationResult } from "../logic/simulation";
+import { CombinedSettings } from "../config/formConfig";
 
-interface Config {
-  tickInterval: number;
-  duration: number;
-  manaMax: number;
-  manaRegen: number;
-  baseCost: number;
-  costMultiplier: number;
-  extraCostPercent: number;
-  incCostPercent: number;
-  moreLessCost: number;
-  castPerSecond: number;
-  dmgPer200: number;
-  costIncPer200: number;
-}
-
-export function SimulationResults({ config }: { config: Config }) {
+export function SimulationResults({ config }: { config: CombinedSettings }) {
   const [view, setView] = useState("chart");
   const [results, setResults] = useState<SimulationResult | null>(null);
 

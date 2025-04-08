@@ -1,5 +1,7 @@
-export interface FieldConfig {
-  key: string;
+import { DotToNested, Merge, UnionToIntersection } from "../utils";
+
+export interface FieldConfig<K extends string = string> {
+  key: K; // e.g. "skill.baseCost"
   label: string;
   min?: number;
   max?: number;
@@ -8,17 +10,21 @@ export interface FieldConfig {
   tooltip: string;
 }
 
-export interface GroupConfig {
+export interface GroupConfig<K extends string = string> {
   title: string;
-  fields: FieldConfig[];
+  fields: FieldConfig<K>[];
 }
+
+// --------------------------------------
+// TYPE-SAFE formGroups
+// --------------------------------------
 
 export const formGroups = [
   {
     title: "Server Settings",
     fields: [
       {
-        key: "tickInterval",
+        key: "server.tickInterval",
         label: "Tick Interval",
         min: 0.001,
         max: 1,
@@ -27,7 +33,7 @@ export const formGroups = [
         tooltip: "Server tick rate (seconds)",
       },
       {
-        key: "duration",
+        key: "server.duration",
         label: "Duration",
         min: 1,
         max: 300,
@@ -41,7 +47,7 @@ export const formGroups = [
     title: "Player Settings",
     fields: [
       {
-        key: "manaMax",
+        key: "player.manaMax",
         label: "Max Mana",
         min: 100,
         max: 10000,
@@ -50,7 +56,7 @@ export const formGroups = [
         tooltip: "Player maximum mana",
       },
       {
-        key: "manaRegen",
+        key: "player.manaRegen",
         label: "Mana Regen",
         min: 0,
         max: 10000,
@@ -64,7 +70,7 @@ export const formGroups = [
     title: "Skill Settings",
     fields: [
       {
-        key: "baseCost",
+        key: "skill.baseCost",
         label: "Gem Base Cost",
         min: 0,
         max: 1000,
@@ -73,7 +79,7 @@ export const formGroups = [
         tooltip: "Base mana cost of the skill gem",
       },
       {
-        key: "costMultiplier",
+        key: "skill.costMultiplier",
         label: "Cost Multiplier",
         min: 0.1,
         max: 5,
@@ -82,7 +88,7 @@ export const formGroups = [
         tooltip: "Cost multiplier from support gem",
       },
       {
-        key: "extraCostPercent",
+        key: "skill.extraCostPercent",
         label: "Extra Cost %",
         min: 0,
         max: 1,
@@ -91,7 +97,7 @@ export const formGroups = [
         tooltip: "Extra cost (% max mana), e.g. Archmage support",
       },
       {
-        key: "incCostPercent",
+        key: "skill.incCostPercent",
         label: "Increased Cost %",
         min: 0,
         max: 500,
@@ -100,7 +106,7 @@ export const formGroups = [
         tooltip: "Increased cost (%), e.g. Tree, gear, Indigon effects",
       },
       {
-        key: "moreLessCost",
+        key: "skill.moreLessCost",
         label: "More/Less Cost Multiplier",
         min: 0,
         max: 2,
@@ -109,7 +115,7 @@ export const formGroups = [
         tooltip: "More/Less cost multiplier, e.g. Tree, Gear, gem supports",
       },
       {
-        key: "castPerSecond",
+        key: "skill.castPerSecond",
         label: "Casts per Second",
         min: 0.1,
         max: 20,
@@ -123,7 +129,7 @@ export const formGroups = [
     title: "Indigon Settings",
     fields: [
       {
-        key: "dmgPer200",
+        key: "indigon.dmgPer200",
         label: "Damage % per 200 Mana",
         min: 0,
         max: 500,
@@ -132,7 +138,7 @@ export const formGroups = [
         tooltip: "Damage increase per 200 mana spent",
       },
       {
-        key: "costIncPer200",
+        key: "indigon.costIncPer200",
         label: "Cost % Increase per 200 Mana",
         min: 0,
         max: 500,
@@ -142,12 +148,12 @@ export const formGroups = [
       },
     ],
   },
-] as const satisfies GroupConfig[];
+] as const satisfies readonly GroupConfig[];
 
+// 🔍 Extract literal keys like "skill.baseCost"
 type FieldGroups = typeof formGroups;
+type FieldKeys = FieldGroups[number]["fields"][number]["key"];
 
-type AllFieldKeys = FieldGroups[number]["fields"][number]["key"];
-
-export type FlatFormValues = {
-  [K in AllFieldKeys]: number;
-};
+export type CombinedSettings = Merge<
+  UnionToIntersection<DotToNested<FieldKeys>>
+>;

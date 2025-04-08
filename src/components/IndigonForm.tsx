@@ -8,22 +8,9 @@ import {
 } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 
-import { formGroups } from "../config/formConfig";
+import { CombinedSettings, formGroups } from "../config/formConfig";
 
-type Form = UseFormReturnType<{
-  tickInterval: number;
-  duration: number;
-  manaMax: number;
-  manaRegen: number;
-  baseCost: number;
-  costMultiplier: number;
-  extraCostPercent: number;
-  incCostPercent: number;
-  moreLessCost: number;
-  castPerSecond: number;
-  dmgPer200: number;
-  costIncPer200: number;
-}>;
+type Form = UseFormReturnType<CombinedSettings>;
 
 export function IndigonForm({ form }: { form: Form }) {
   return (

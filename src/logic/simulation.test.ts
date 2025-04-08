@@ -1,23 +1,30 @@
 import { describe, expect, test } from "vitest";
-
 import { simulateIndigon } from "./simulation";
-import { FlatFormValues } from "../config/formConfig";
+import type { CombinedSettings } from "../config/formConfig"; // now exported from config
 
-describe("simulateIndigon (flat config)", () => {
+describe("simulateIndigon (nested config)", () => {
   test("sanity check for basic mana and damage progression", () => {
-    const config: FlatFormValues = {
-      tickInterval: 1,
-      duration: 5,
-      manaMax: 1000,
-      manaRegen: 100,
-      baseCost: 100,
-      costMultiplier: 1,
-      extraCostPercent: 0,
-      incCostPercent: 0,
-      moreLessCost: 1,
-      castPerSecond: 1,
-      dmgPer200: 50,
-      costIncPer200: 50,
+    const config: CombinedSettings = {
+      server: {
+        tickInterval: 1,
+        duration: 5,
+      },
+      player: {
+        manaMax: 1000,
+        manaRegen: 100,
+      },
+      skill: {
+        baseCost: 100,
+        costMultiplier: 1,
+        extraCostPercent: 0,
+        incCostPercent: 0,
+        moreLessCost: 1,
+        castPerSecond: 1,
+      },
+      indigon: {
+        dmgPer200: 50,
+        costIncPer200: 50,
+      },
     };
 
     const result = simulateIndigon(config);
@@ -28,19 +35,27 @@ describe("simulateIndigon (flat config)", () => {
   });
 
   test("returns no damage when spell cost is never paid", () => {
-    const config: FlatFormValues = {
-      tickInterval: 1,
-      duration: 5,
-      manaMax: 10, // Not enough to cast even once
-      manaRegen: 0,
-      baseCost: 100,
-      costMultiplier: 1,
-      extraCostPercent: 0,
-      incCostPercent: 0,
-      moreLessCost: 1,
-      castPerSecond: 1,
-      dmgPer200: 50,
-      costIncPer200: 50,
+    const config: CombinedSettings = {
+      server: {
+        tickInterval: 1,
+        duration: 5,
+      },
+      player: {
+        manaMax: 10, // Not enough to cast even once
+        manaRegen: 0,
+      },
+      skill: {
+        baseCost: 100,
+        costMultiplier: 1,
+        extraCostPercent: 0,
+        incCostPercent: 0,
+        moreLessCost: 1,
+        castPerSecond: 1,
+      },
+      indigon: {
+        dmgPer200: 50,
+        costIncPer200: 50,
+      },
     };
 
     const result = simulateIndigon(config);
