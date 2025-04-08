@@ -22,6 +22,21 @@ export function SimulationResults({ config }: { config: CombinedSettings }) {
     return () => worker.terminate();
   }, [config]);
 
+  if (!results) {
+    return (
+      <Box
+        style={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div>Waiting for data...</div>
+      </Box>
+    );
+  }
+
   return (
     <Box style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <SegmentedControl

@@ -4,19 +4,17 @@ import { useElementSize } from "@mantine/hooks";
 import type { SimulationResult } from "../logic/simulation";
 
 interface ResultsChartProps {
-  results?: SimulationResult | null;
+  results: SimulationResult;
 }
 
 export function ResultsChart({ results }: ResultsChartProps) {
   const { ref, height } = useElementSize();
 
-  const chartData = results
-    ? results.time.map((t, idx) => ({
-        time: t.toFixed(2),
-        mana: results.manaLeft[idx],
-        damage: results.spellDmg[idx],
-      }))
-    : [];
+  const chartData = results.time.map((t, idx) => ({
+    time: t.toFixed(2),
+    mana: results.manaLeft[idx],
+    damage: results.spellDmg[idx],
+  }));
 
   return (
     <Paper
@@ -43,8 +41,6 @@ export function ResultsChart({ results }: ResultsChartProps) {
             curveType="natural"
           />
         )}
-
-        {!results && <Text>Waiting for data...</Text>}
       </Box>
     </Paper>
   );
