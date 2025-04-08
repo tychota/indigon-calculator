@@ -45,10 +45,10 @@ export function IndigonForm() {
     <Stack>
       {formGroups.map((group) => (
         <Paper key={group.title} shadow="xs" radius="md" p="md">
-          <Title order={4} mb="md">
+          <Title order={4} mb="lg">
             {group.title}
           </Title>
-          <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
+          <SimpleGrid cols={2} spacing="md">
             {group.fields.map((field) => (
               <Tooltip
                 key={field.key}
@@ -56,6 +56,7 @@ export function IndigonForm() {
                 disabled={!field.tooltip}
               >
                 <NumberInput
+                  size="sm"
                   label={field.label}
                   {...form.getInputProps(field.key)}
                   min={field.min}
