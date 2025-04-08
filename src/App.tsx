@@ -1,5 +1,5 @@
 import { Container, Title, Stack } from "@mantine/core";
-import SimulationInput from "./components/SimulationInput";
+import { IndigonForm } from "./components/IndigonForm";
 import ResultsChart from "./components/ResultsChart";
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
       </Title>
 
       <Stack>
-        <SimulationInput />
+        <IndigonForm />
         <ResultsChart />
       </Stack>
     </Container>
