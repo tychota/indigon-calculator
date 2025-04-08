@@ -6,7 +6,7 @@ import {
 } from "mantine-react-table";
 import { Paper, Text, Box } from "@mantine/core";
 
-import type { SimulationResult } from "../logic/simulation";
+import type { SimulationResult } from "../logic/simulate";
 
 interface TableRow {
   time: number;

@@ -3,7 +3,6 @@ import { useForm } from "@mantine/form";
 
 import { IndigonForm } from "./components/IndigonForm";
 import { SimulationResults } from "./components/SimulationResults";
-import { Recommendations } from "./components/Recommendations";
 
 import { formGroups, CombinedSettings } from "./config/formConfig";
 
@@ -51,13 +50,13 @@ function App() {
       </Title>
 
       <Grid gutter="lg" align="stretch">
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={{ base: 12, md: 5 }}>
           <Paper shadow="xs" radius="md" p="md" h="100%">
             <IndigonForm form={form} />
           </Paper>
         </Grid.Col>
 
-        <Grid.Col span={{ base: 12, md: 8 }}>
+        <Grid.Col span={{ base: 12, md: 7 }}>
           <Flex direction="column" gap="md" h="100%">
             <Paper
               shadow="xs"
@@ -66,9 +65,6 @@ function App() {
               style={{ flexGrow: 1, overflow: "hidden" }}
             >
               <SimulationResults config={form.values} />
-            </Paper>
-            <Paper shadow="xs" radius="md" p="md" style={{ height: 150 }}>
-              <Recommendations />
             </Paper>
           </Flex>
         </Grid.Col>

@@ -6,23 +6,29 @@ import { ResultsTable } from "./ResultsTable";
 
 import SimulationWorker from "../workers/simulationWorker?worker";
 
-import type { SimulationResult } from "../logic/simulation";
 import { CombinedSettings } from "../config/formConfig";
+
+import type { SimulationResult } from "../logic/simulate";
+import { analyzeSimulation, SimulationAnalysis } from "../logic/analyze";
+import { Recommendations } from "./Recommendations";
 
 export function SimulationResults({ config }: { config: CombinedSettings }) {
   const [view, setView] = useState("chart");
   const [results, setResults] = useState<SimulationResult | null>(null);
+  const [analysis, setAnalysis] = useState<SimulationAnalysis | null>(null);
 
   useEffect(() => {
     const worker = new SimulationWorker();
     worker.postMessage(config);
     worker.onmessage = (event: MessageEvent<SimulationResult>) => {
-      setResults(event.data);
+      const simResult = event.data;
+      setResults(simResult);
+      setAnalysis(analyzeSimulation(simResult));
     };
     return () => worker.terminate();
   }, [config]);
 
-  if (!results) {
+  if (!results || !analysis) {
     return (
       <Box
         style={{
@@ -55,6 +61,7 @@ export function SimulationResults({ config }: { config: CombinedSettings }) {
           <ResultsTable results={results} />
         )}
       </Box>
+      <Recommendations analysis={analysis} />
     </Box>
   );
 }
