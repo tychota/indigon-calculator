@@ -1,38 +1,26 @@
-import { Table, ScrollArea, Paper } from "@mantine/core";
-
-interface SimulationResult {
-  time: number[];
-  spellDmg: number[];
-  manaLeft: number[];
-  manaCost: number[];
-}
+import { Table, ScrollArea, Paper, Text } from "@mantine/core";
+import type { SimulationResult } from "../logic/simulation";
 
 interface ResultsTableProps {
-  results?: SimulationResult;
+  results?: SimulationResult | null;
 }
 
 export function ResultsTable({ results }: ResultsTableProps) {
-  // Mock results if none provided
-  const mockResults: SimulationResult = {
-    time: [0, 0.033, 0.066, 0.099],
-    spellDmg: [0, 35, 70, 105],
-    manaLeft: [6000, 5900, 5800, 5700],
-    manaCost: [100, 100, 100, 100],
-  };
+  if (!results) {
+    return <Text>Waiting for data...</Text>;
+  }
 
-  const data = results || mockResults;
-
-  const rows = data.time.map((time, idx) => (
+  const rows = results.time.map((time, idx) => (
     <Table.Tr key={time}>
       <Table.Td>{time.toFixed(3)}</Table.Td>
-      <Table.Td>{data.spellDmg[idx]}</Table.Td>
-      <Table.Td>{data.manaLeft[idx]}</Table.Td>
-      <Table.Td>{data.manaCost[idx]}</Table.Td>
+      <Table.Td>{results.spellDmg[idx]}</Table.Td>
+      <Table.Td>{results.manaLeft[idx]}</Table.Td>
+      <Table.Td>{results.manaCost[idx]}</Table.Td>
     </Table.Tr>
   ));
 
   return (
-    <Paper shadow="xs" radius="md" withBorder>
+    <Paper shadow="xs" radius="md" withBorder h="100%">
       <ScrollArea h="100%">
         <Table stickyHeader striped highlightOnHover withColumnBorders>
           <Table.Thead>

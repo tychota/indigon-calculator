@@ -5,7 +5,7 @@ export interface FieldConfig {
   max?: number;
   step?: number;
   precision?: number;
-  tooltip?: string;
+  tooltip: string;
 }
 
 export interface GroupConfig {
@@ -13,7 +13,7 @@ export interface GroupConfig {
   fields: FieldConfig[];
 }
 
-export const formGroups: GroupConfig[] = [
+export const formGroups = [
   {
     title: "Server Settings",
     fields: [
@@ -70,6 +70,7 @@ export const formGroups: GroupConfig[] = [
         max: 1000,
         step: 1,
         precision: 0,
+        tooltip: "Base mana cost of the skill gem",
       },
       {
         key: "costMultiplier",
@@ -78,6 +79,7 @@ export const formGroups: GroupConfig[] = [
         max: 5,
         step: 0.0001,
         precision: 4,
+        tooltip: "Cost multiplier from support gem",
       },
       {
         key: "extraCostPercent",
@@ -95,6 +97,7 @@ export const formGroups: GroupConfig[] = [
         max: 500,
         step: 1,
         precision: 0,
+        tooltip: "Increased cost (%), e.g. Tree, gear, Indigon effects",
       },
       {
         key: "moreLessCost",
@@ -103,6 +106,7 @@ export const formGroups: GroupConfig[] = [
         max: 2,
         step: 0.01,
         precision: 2,
+        tooltip: "More/Less cost multiplier, e.g. Tree, Gear, gem supports",
       },
       {
         key: "castPerSecond",
@@ -111,6 +115,7 @@ export const formGroups: GroupConfig[] = [
         max: 20,
         step: 0.1,
         precision: 1,
+        tooltip: "Casts per second",
       },
     ],
   },
@@ -124,6 +129,7 @@ export const formGroups: GroupConfig[] = [
         max: 500,
         step: 1,
         precision: 0,
+        tooltip: "Damage increase per 200 mana spent",
       },
       {
         key: "costIncPer200",
@@ -132,7 +138,16 @@ export const formGroups: GroupConfig[] = [
         max: 500,
         step: 1,
         precision: 0,
+        tooltip: "Cost increase per 200 mana spent",
       },
     ],
   },
-];
+] as const satisfies GroupConfig[];
+
+type FieldGroups = typeof formGroups;
+
+type AllFieldKeys = FieldGroups[number]["fields"][number]["key"];
+
+export type FlatFormValues = {
+  [K in AllFieldKeys]: number;
+};

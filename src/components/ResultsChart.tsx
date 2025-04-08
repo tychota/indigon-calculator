@@ -1,16 +1,22 @@
 import { Paper, Text, Box } from "@mantine/core";
 import { LineChart } from "@mantine/charts";
 import { useElementSize } from "@mantine/hooks";
+import type { SimulationResult } from "../logic/simulation";
 
-export function ResultsChart() {
-  const mockData = [
-    { time: "0", mana: 6000, damage: 0 },
-    { time: "1", mana: 5800, damage: 35 },
-    { time: "2", mana: 5600, damage: 70 },
-    // More mock data if desired...
-  ];
+interface ResultsChartProps {
+  results?: SimulationResult | null;
+}
 
+export function ResultsChart({ results }: ResultsChartProps) {
   const { ref, height } = useElementSize();
+
+  const chartData = results
+    ? results.time.map((t, idx) => ({
+        time: t.toFixed(2),
+        mana: results.manaLeft[idx],
+        damage: results.spellDmg[idx],
+      }))
+    : [];
 
   return (
     <Paper
@@ -21,14 +27,14 @@ export function ResultsChart() {
       style={{ display: "flex", flexDirection: "column" }}
     >
       <Text size="lg" fw={600} mb="md">
-        Simulation Results (Mock)
+        Simulation Results
       </Text>
 
       <Box ref={ref} style={{ flexGrow: 1 }}>
-        {height > 0 && (
+        {height > 0 && results && (
           <LineChart
             h={height}
-            data={mockData}
+            data={chartData}
             dataKey="time"
             series={[
               { name: "mana", color: "green" },
@@ -37,6 +43,8 @@ export function ResultsChart() {
             curveType="natural"
           />
         )}
+
+        {!results && <Text>Waiting for data...</Text>}
       </Box>
     </Paper>
   );

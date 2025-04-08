@@ -6,41 +6,26 @@ import {
   Title,
   SimpleGrid,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { UseFormReturnType } from "@mantine/form";
+
 import { formGroups } from "../config/formConfig";
 
-export function IndigonForm() {
-  const initialValues = {
-    tickInterval: 0.033,
-    duration: 20,
-    manaMax: 6000,
-    manaRegen: 3400,
-    baseCost: 72,
-    costMultiplier: 1.3799,
-    extraCostPercent: 0,
-    incCostPercent: 10,
-    moreLessCost: 0.7,
-    castPerSecond: 5,
-    dmgPer200: 35,
-    costIncPer200: 35,
-  };
+type Form = UseFormReturnType<{
+  tickInterval: number;
+  duration: number;
+  manaMax: number;
+  manaRegen: number;
+  baseCost: number;
+  costMultiplier: number;
+  extraCostPercent: number;
+  incCostPercent: number;
+  moreLessCost: number;
+  castPerSecond: number;
+  dmgPer200: number;
+  costIncPer200: number;
+}>;
 
-  const form = useForm({
-    initialValues,
-    validate: Object.fromEntries(
-      formGroups.flatMap((group) =>
-        group.fields.map((field) => [
-          field.key,
-          (val: number) =>
-            (field.min !== undefined && val < field.min) ||
-            (field.max !== undefined && val > field.max)
-              ? `${field.label} must be between ${field.min} and ${field.max}`
-              : null,
-        ])
-      )
-    ),
-  });
-
+export function IndigonForm({ form }: { form: Form }) {
   return (
     <Stack>
       {formGroups.map((group) => (
