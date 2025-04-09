@@ -136,7 +136,7 @@ export const formGroups = [
         max: 61,
         step: 1,
         precision: 0,
-        tooltip: "Damage increase per 200 mana spent",
+        tooltip: "Damage increase per 200 mana spent (35-50%)",
       },
       {
         key: "indigon.costIncPer200",
@@ -146,7 +146,7 @@ export const formGroups = [
         max: 61,
         step: 1,
         precision: 0,
-        tooltip: "Cost increase per 200 mana spent",
+        tooltip: "Cost increase per 200 mana spent (35-50%)",
       },
     ],
   },

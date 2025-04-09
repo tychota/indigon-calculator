@@ -5,6 +5,7 @@ import { IndigonForm } from "./components/IndigonForm";
 import { SimulationResults } from "./components/SimulationResults";
 
 import { formGroups, CombinedSettings } from "./config/formConfig";
+import { useEffect } from "react";
 
 const GithubIcon = () => (
   <svg
@@ -35,7 +36,7 @@ function Header() {
 
 function App() {
   const initialValues = {
-    server: { tickInterval: 0.033, duration: 20 },
+    server: { tickInterval: 0.033, duration: 40 },
     player: { manaMax: 6000, manaRegen: 3400 },
     skill: {
       baseCost: 72,
@@ -45,7 +46,7 @@ function App() {
       moreLessCost: 0.7,
       castPerSecond: 5,
     },
-    indigon: { dmgPer200: 35, costIncPer200: 35 },
+    indigon: { dmgPer200: 33, costIncPer200: 42 },
   };
 
   const form = useForm<CombinedSettings>({
@@ -63,7 +64,21 @@ function App() {
         ]),
       ),
     ),
+    onValuesChange: (values) => {
+      window.localStorage.setItem("form", JSON.stringify(values));
+    },
   });
+
+  useEffect(() => {
+    const storedValue = window.localStorage.getItem("form");
+    if (storedValue) {
+      try {
+        form.setValues(JSON.parse(window.localStorage.getItem("form")!));
+      } catch {
+        console.log("Failed to parse stored value");
+      }
+    }
+  }, []);
 
   return (
     <Container fluid py="md">

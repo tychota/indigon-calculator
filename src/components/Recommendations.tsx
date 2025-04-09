@@ -1,4 +1,4 @@
-import { Alert, Text, Flex, Divider } from "@mantine/core";
+import { Alert, Text, Flex, Divider, Tooltip } from "@mantine/core";
 import type { SimulationAnalysis } from "../logic/analyze";
 
 export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) {
@@ -23,32 +23,50 @@ export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) 
 
       <Divider my="sm" />
 
-      {/* Then a structured layout for the key stats */}
-      <Flex gap="md" justify="space-between" wrap="wrap">
-        {/* Ramp time & Max bonus */}
-        <Text size="sm">
-          <b>Ramp Time:</b> {rampTime.toFixed(2)}s
-        </Text>
-        <Text size="sm">
-          <b>Miss Rate:</b> {missRate.toFixed(2)}%
-        </Text>
-      </Flex>
+      <Flex gap="md" direction="column">
+        <Flex justify="space-between" wrap="wrap">
+          <Tooltip label="Time needed to reach the maximum Indigon bonus" withArrow>
+            <Text size="sm">
+              <b>Ramp Time:</b> {rampTime.toFixed(2)}s
+            </Text>
+          </Tooltip>
+          <Tooltip
+            label="The percentage of expected casts missed after reaching maximum ramp (lower is better)"
+            withArrow
+          >
+            <Text size="sm">
+              <b>Miss Rate:</b> {missRate.toFixed(2)}%
+            </Text>
+          </Tooltip>
+        </Flex>
 
-      <Flex gap="md" justify="space-between" wrap="wrap" mt="xs">
-        {/* Miss Rate & Adjusted Cast Rate */}
-        <Text size="sm">
-          <b>Max Indigon Bonus:</b> {maxSpellDmg}%
-        </Text>
-        <Text size="sm">
-          <b>Effective Cast Rate:</b> {adjustedCastRate.toFixed(2)}%
-        </Text>
-      </Flex>
+        <Flex justify="space-between" wrap="wrap" mt="xs">
+          <Tooltip label="Highest bonus achieved during the simulation" withArrow>
+            <Text size="sm">
+              <b>Max Indigon Bonus:</b> {maxSpellDmg}%
+            </Text>
+          </Tooltip>
+          <Tooltip label="Effective cast rate, calculated as 100 - Miss Rate" withArrow>
+            <Text size="sm">
+              <b>Effective Cast Rate:</b> {adjustedCastRate.toFixed(2)}%
+            </Text>
+          </Tooltip>
+        </Flex>
 
-      <Flex gap="md" justify="space-between" wrap="wrap" mt="xs">
-        <Text size="sm"> </Text>
-        <Text size="sm">
-          <b>Estimated Sustained Bonus:</b> {estimatedSustainedDmg}%
-        </Text>
+        {/* A note about the estimated sustained bonus */}
+        <Flex justify="space-between" wrap="wrap" mt="xs">
+          <Text size="sm" mt="xs"></Text>
+          <Tooltip
+            label="Estimated sustained bonus computed as Max Bonus multiplied by Effective Cast Rate divided by 100"
+            withArrow
+          >
+            <Text size="sm">
+              <b>Estimated Sustained Bonus:</b> {estimatedSustainedDmg}%
+            </Text>
+          </Tooltip>
+        </Flex>
+
+        <Divider my="sm" />
       </Flex>
     </Alert>
   );

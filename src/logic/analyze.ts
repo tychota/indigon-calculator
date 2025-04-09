@@ -26,10 +26,10 @@ export function analyzeSimulation(result: SimulationResult): SimulationAnalysis 
   let shortMsg = "Check your stats."; // Fallback
 
   // Decide status based on missRate
-  if (missRate < 20) {
+  if (missRate < 40) {
     status = "perfect";
     shortMsg = "Excellent - minimal misses.";
-  } else if (missRate >= 50) {
+  } else if (missRate >= 70) {
     status = "red";
     shortMsg = "Unstable - high miss rate.";
   } else {
