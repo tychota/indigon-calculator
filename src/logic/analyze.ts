@@ -28,13 +28,13 @@ export function analyzeSimulation(result: SimulationResult): SimulationAnalysis 
   // Decide status based on missRate
   if (missRate < 40) {
     status = "perfect";
-    shortMsg = "Excellent - minimal misses.";
+    shortMsg = "Excellent - minimal misses (0-40% miss rate).";
   } else if (missRate >= 70) {
     status = "red";
-    shortMsg = "Unstable - high miss rate.";
+    shortMsg = "Unstable - high miss rate (70%-100% miss rate).";
   } else {
     status = "warning";
-    shortMsg = "Moderate miss rate.";
+    shortMsg = "Moderate miss rate (40-70% miss rate).";
   }
 
   // For example, a short note about cast speed

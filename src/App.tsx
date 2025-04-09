@@ -1,4 +1,4 @@
-import { Container, Grid, Title, Paper, Flex, Anchor, Group } from "@mantine/core";
+import { Container, Grid, Title, Paper, Flex, Anchor, Group, Text } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import { IndigonForm } from "./components/IndigonForm";
@@ -27,8 +27,14 @@ const GithubIcon = () => (
 function Header() {
   return (
     <Group gap="xs" style={{ position: "absolute", top: 10, right: 10 }}>
-      <Anchor href="https://github.com/tychota/indigon-calculator" target="_blank" rel="noopener noreferrer">
+      <Anchor
+        href="https://github.com/tychota/indigon-calculator"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ display: "flex", alignItems: "center", gap: 5 }}
+      >
         <GithubIcon />
+        <Text size="sm">by TychoTa</Text>
       </Anchor>
     </Group>
   );
