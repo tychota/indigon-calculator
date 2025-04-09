@@ -14,17 +14,13 @@ export interface SimulationAnalysis {
   };
 }
 
-export function analyzeSimulation(
-  result: SimulationResult
-): SimulationAnalysis {
+export function analyzeSimulation(result: SimulationResult): SimulationAnalysis {
   const rampTime = result.timeToMaxDmg;
   const maxSpellDmg = result.maxSpellDmg;
   // Suppose `missRateAfterFirstMiss` is a raw 0–100 number:
   const missRate = parseFloat(result.missRateAfterFirstMiss.toFixed(2));
   const adjustedCastRate = parseFloat((100 - missRate).toFixed(2));
-  const estimatedSustainedDmg = Math.round(
-    maxSpellDmg * (adjustedCastRate / 100)
-  );
+  const estimatedSustainedDmg = Math.round(maxSpellDmg * (adjustedCastRate / 100));
 
   let status: SimulationAnalysis["status"] = "other";
   let shortMsg = "Check your stats."; // Fallback

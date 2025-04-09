@@ -1,9 +1,5 @@
 import { useMemo } from "react";
-import {
-  type MRT_ColumnDef,
-  MantineReactTable,
-  useMantineReactTable,
-} from "mantine-react-table";
+import { type MRT_ColumnDef, MantineReactTable, useMantineReactTable } from "mantine-react-table";
 import { Paper, Text, Box } from "@mantine/core";
 
 import type { SimulationResult } from "../logic/simulate";
@@ -51,7 +47,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
         header: "Mana Cost",
       },
     ],
-    []
+    [],
   );
 
   const table = useMantineReactTable({
@@ -79,13 +75,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
   });
 
   return (
-    <Paper
-      shadow="sm"
-      radius="md"
-      p="lg"
-      h="100%"
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <Paper shadow="sm" radius="md" p="lg" h="100%" style={{ display: "flex", flexDirection: "column" }}>
       <Text size="lg" fw={600} mb="md">
         Simulation Results
       </Text>

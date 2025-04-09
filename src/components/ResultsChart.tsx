@@ -1,15 +1,5 @@
 import { Paper, Text, Box } from "@mantine/core";
-import {
-  ComposedChart,
-  Line,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ReferenceLine,
-  ResponsiveContainer,
-} from "recharts";
+import { ComposedChart, Line, Area, XAxis, YAxis, Tooltip, Legend, ReferenceLine, ResponsiveContainer } from "recharts";
 import { useElementSize } from "@mantine/hooks";
 import type { SimulationResult, CastDelay } from "../logic/simulate"; // adjust import if needed
 
@@ -29,10 +19,7 @@ interface ResultsChartProps {
  * Given a list of delay regions (each with x1, x2) and a time value,
  * returns true if time is within any delay region.
  */
-const isInDelayRegion = (
-  t: number,
-  delayRegions: { x1: number; x2: number }[]
-): boolean => {
+const isInDelayRegion = (t: number, delayRegions: { x1: number; x2: number }[]): boolean => {
   return delayRegions.some((region) => t >= region.x1 && t <= region.x2);
 };
 
@@ -41,9 +28,7 @@ const isInDelayRegion = (
  * Each region is defined by: x1 = ideal cast time, x2 = actual cast time.
  */
 const computeDelayRegions = (delays: CastDelay[]) =>
-  delays
-    .filter((d) => d.actual > d.ideal)
-    .map((d) => ({ x1: d.ideal, x2: d.actual }));
+  delays.filter((d) => d.actual > d.ideal).map((d) => ({ x1: d.ideal, x2: d.actual }));
 
 export function ResultsChart({ results }: ResultsChartProps) {
   const { ref, height } = useElementSize();
@@ -70,12 +55,7 @@ export function ResultsChart({ results }: ResultsChartProps) {
   const verticalLines = results.castEvents.map((ce) => ce.actual);
 
   return (
-    <Paper
-      shadow="sm"
-      radius="md"
-      p="lg"
-      style={{ display: "flex", flexDirection: "column", height: "100%" }}
-    >
+    <Paper shadow="sm" radius="md" p="lg" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <Text size="lg" fw={600} mb="md">
         Simulation Results
       </Text>
@@ -87,20 +67,8 @@ export function ResultsChart({ results }: ResultsChartProps) {
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
               <Legend />
-              <Line
-                type="monotone"
-                dataKey="mana"
-                stroke="#1E71A7"
-                dot={false}
-                name="Mana"
-              />
-              <Line
-                type="monotone"
-                dataKey="damage"
-                stroke="#337128"
-                dot={false}
-                name="Damage"
-              />
+              <Line type="monotone" dataKey="mana" stroke="#1E71A7" dot={false} name="Mana" />
+              <Line type="monotone" dataKey="damage" stroke="#337128" dot={false} name="Damage" />
 
               {/* Render delay area as an Area chart. This series will appear in the legend. */}
               <Area
@@ -116,13 +84,7 @@ export function ResultsChart({ results }: ResultsChartProps) {
 
               {/* Faint vertical reference lines at each actual cast time */}
               {verticalLines.map((xVal, index) => (
-                <ReferenceLine
-                  key={index}
-                  x={xVal}
-                  stroke="#000"
-                  strokeOpacity={0.1}
-                  strokeDasharray="3 3"
-                />
+                <ReferenceLine key={index} x={xVal} stroke="#000" strokeOpacity={0.1} strokeDasharray="3 3" />
               ))}
             </ComposedChart>
           </ResponsiveContainer>

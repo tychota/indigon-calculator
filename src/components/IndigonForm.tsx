@@ -1,12 +1,4 @@
-import {
-  Paper,
-  NumberInput,
-  Tooltip,
-  Stack,
-  Title,
-  SimpleGrid,
-  Text,
-} from "@mantine/core";
+import { Paper, NumberInput, Tooltip, Stack, Title, SimpleGrid, Text } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 
 import { CombinedSettings, formGroups } from "../config/formConfig";
@@ -20,12 +12,8 @@ export function IndigonForm({ form }: { form: Form }) {
         // Check if this is the Indigon Settings group.
         const isIndigonGroup = group.title === "Indigon Settings";
         // For the indigon group, retrieve the current values.
-        const dmgValue = isIndigonGroup
-          ? form.values.indigon.dmgPer200
-          : undefined;
-        const costValue = isIndigonGroup
-          ? form.values.indigon.costIncPer200
-          : undefined;
+        const dmgValue = isIndigonGroup ? form.values.indigon.dmgPer200 : undefined;
+        const costValue = isIndigonGroup ? form.values.indigon.costIncPer200 : undefined;
         // Determine if the current value is outside the normal range (35 to 50)
         const requiresCorruption =
           isIndigonGroup &&
@@ -62,11 +50,7 @@ export function IndigonForm({ form }: { form: Form }) {
             </div>
             <SimpleGrid cols={2} spacing="md">
               {group.fields.map((field) => (
-                <Tooltip
-                  key={field.key}
-                  label={field.tooltip || ""}
-                  disabled={!field.tooltip}
-                >
+                <Tooltip key={field.key} label={field.tooltip || ""} disabled={!field.tooltip}>
                   <NumberInput
                     size="sm"
                     label={field.label}

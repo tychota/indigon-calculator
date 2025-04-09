@@ -156,6 +156,4 @@ export const formGroups = [
 type FieldGroups = typeof formGroups;
 type FieldKeys = FieldGroups[number]["fields"][number]["key"];
 
-export type CombinedSettings = Merge<
-  UnionToIntersection<DotToNested<FieldKeys>>
->;
+export type CombinedSettings = Merge<UnionToIntersection<DotToNested<FieldKeys>>>;

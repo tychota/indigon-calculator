@@ -1,11 +1,7 @@
 import { Alert, Text, Flex, Divider } from "@mantine/core";
 import type { SimulationAnalysis } from "../logic/analyze";
 
-export function Recommendations({
-  analysis,
-}: {
-  analysis: SimulationAnalysis;
-}) {
+export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) {
   const colorMap = {
     red: "red",
     warning: "yellow",
@@ -13,14 +9,7 @@ export function Recommendations({
     other: "blue",
   } as const;
 
-  const {
-    rampTime,
-    maxSpellDmg,
-    missRate,
-    adjustedCastRate,
-    estimatedSustainedDmg,
-    additionalNote,
-  } = analysis.details;
+  const { rampTime, maxSpellDmg, missRate, adjustedCastRate, estimatedSustainedDmg, additionalNote } = analysis.details;
 
   return (
     <Alert color={colorMap[analysis.status] || "blue"} title="Advices">

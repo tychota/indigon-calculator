@@ -163,8 +163,7 @@ export function simulateIndigon(config: CombinedSettings): SimulationResult {
   // Count the number of actual casts that occurred at or after t0.
   const actualCasts = castEvents.filter((ce) => ce.actual >= t0).length;
   // Miss rate percentage is the fraction missed compared to expected, expressed from 0 to 100.
-  result.missRateAfterFirstMiss =
-    ((expectedCasts - actualCasts) / expectedCasts) * 100;
+  result.missRateAfterFirstMiss = ((expectedCasts - actualCasts) / expectedCasts) * 100;
 
   return result;
 }

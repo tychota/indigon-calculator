@@ -55,11 +55,7 @@ export function SimulationResults({ config }: { config: CombinedSettings }) {
         mb="sm"
       />
       <Box style={{ flexGrow: 1, overflow: "hidden" }}>
-        {view === "chart" ? (
-          <ResultsChart results={results} />
-        ) : (
-          <ResultsTable results={results} />
-        )}
+        {view === "chart" ? <ResultsChart results={results} /> : <ResultsTable results={results} />}
       </Box>
       <Recommendations analysis={analysis} />
     </Box>

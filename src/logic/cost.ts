@@ -13,15 +13,8 @@ interface SkillCostParams {
  * Pulling out the formula so it's easier to tweak for future patches.
  */
 export function calculateSkillCost(params: SkillCostParams): number {
-  const {
-    baseCost,
-    costMultiplier,
-    extraCostPercent,
-    incCostPercent,
-    indigonIncPercent,
-    moreLessCost,
-    playerManaMax,
-  } = params;
+  const { baseCost, costMultiplier, extraCostPercent, incCostPercent, indigonIncPercent, moreLessCost, playerManaMax } =
+    params;
 
   // 1) base cost, multiplied by costMultiplier
   // 2) extraCostPercent * player's max mana
@@ -29,9 +22,7 @@ export function calculateSkillCost(params: SkillCostParams): number {
   // 4) then multiply by moreLessCost
   const totalIncCost = incCostPercent + indigonIncPercent;
   const rawCost =
-    (baseCost * costMultiplier + extraCostPercent * playerManaMax) *
-    (1 + totalIncCost / 100) *
-    moreLessCost;
+    (baseCost * costMultiplier + extraCostPercent * playerManaMax) * (1 + totalIncCost / 100) * moreLessCost;
 
   // Round the final cost to nearest integer for POE-like behavior
   return Math.round(rawCost);

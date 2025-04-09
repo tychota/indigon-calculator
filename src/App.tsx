@@ -1,12 +1,4 @@
-import {
-  Container,
-  Grid,
-  Title,
-  Paper,
-  Flex,
-  Anchor,
-  Group,
-} from "@mantine/core";
+import { Container, Grid, Title, Paper, Flex, Anchor, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import { IndigonForm } from "./components/IndigonForm";
@@ -34,11 +26,7 @@ const GithubIcon = () => (
 function Header() {
   return (
     <Group gap="xs" style={{ position: "absolute", top: 10, right: 10 }}>
-      <Anchor
-        href="https://github.com/tychota/indigon-calculator"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <Anchor href="https://github.com/tychota/indigon-calculator" target="_blank" rel="noopener noreferrer">
         <GithubIcon />
       </Anchor>
     </Group>
@@ -68,14 +56,12 @@ function App() {
           field.key,
           (val: number) => {
             const { min, max, label } = field;
-            if (min !== undefined && val < min)
-              return `${label} must be ≥ ${min}`;
-            if (max !== undefined && val > max)
-              return `${label} must be ≤ ${max}`;
+            if (min !== undefined && val < min) return `${label} must be ≥ ${min}`;
+            if (max !== undefined && val > max) return `${label} must be ≤ ${max}`;
             return null;
           },
-        ])
-      )
+        ]),
+      ),
     ),
   });
 
@@ -98,12 +84,7 @@ function App() {
 
         <Grid.Col span={{ base: 12, md: 7 }}>
           <Flex direction="column" gap="md" h="100%">
-            <Paper
-              shadow="xs"
-              radius="md"
-              p="md"
-              style={{ flexGrow: 1, overflow: "hidden" }}
-            >
+            <Paper shadow="xs" radius="md" p="md" style={{ flexGrow: 1, overflow: "hidden" }}>
               <SimulationResults config={form.values} />
             </Paper>
           </Flex>
