@@ -1,7 +1,19 @@
 {
   "name": "indigon-poe2-calculator",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A React + TypeScript Indigon Spell Simulator for Poe2.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tychota/indigon-poe2-calculator.git"
+  },
+  "homepage": "https://tychota.github.io/indigon-poe2-calculator",
+  "keywords": [
+    "poe2",
+    "simulator",
+    "react",
+    "typescript",
+    "indigon"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
