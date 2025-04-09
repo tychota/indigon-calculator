@@ -152,31 +152,19 @@ export function simulateIndigon(config: CombinedSettings): SimulationResult {
   result.timeToMaxDmg = timeOfMaxDmg;
 
   // =============== Compute missRateAfterFirstMiss ===============
-  // 1. Find the first delayed cast => index in castDelays or castEvents
-  //    We'll base it on castDelays: if none, then missRate = 0.
-  if (castEvents.length === 0) {
-    result.missRateAfterFirstMiss = 0;
-  } else {
-    // Find the first delayed cast: the first event where the actual cast time exceeded the ideal
-    const firstDelayed = castEvents.find((ce) => ce.actual > ce.ideal);
-    if (!firstDelayed) {
-      result.missRateAfterFirstMiss = 0;
-    } else {
-      // Simulation end time is the last tick time
-      const simulationEndTime = result.time[result.time.length - 1];
-      // The beginning of the delayed period is at the first delayed cast's actual time.
-      const t0 = firstDelayed.actual;
-      // Calculate the expected number of casts between t0 and the simulation end time,
-      // based on the ideal interval.
-      const expectedCasts =
-        Math.floor((simulationEndTime - t0) / idealInterval) + 1;
-      // Count the number of actual casts that occurred at or after t0.
-      const actualCasts = castEvents.filter((ce) => ce.actual >= t0).length;
-      // Miss rate percentage is the fraction missed compared to expected, expressed from 0 to 100.
-      result.missRateAfterFirstMiss =
-        ((expectedCasts - actualCasts) / expectedCasts) * 100;
-    }
-  }
+  // Simulation end time is the last tick time
+  const simulationEndTime = result.time[result.time.length - 1];
+  // The beginning of the delayed period is at the first delayed cast's actual time.
+  // That is roughly when the player deals the most damage.
+  const t0 = timeOfMaxDmg;
+  // Calculate the expected number of casts between t0 and the simulation end time,
+  // based on the ideal interval.
+  const expectedCasts = Math.floor((simulationEndTime - t0) / idealInterval);
+  // Count the number of actual casts that occurred at or after t0.
+  const actualCasts = castEvents.filter((ce) => ce.actual >= t0).length;
+  // Miss rate percentage is the fraction missed compared to expected, expressed from 0 to 100.
+  result.missRateAfterFirstMiss =
+    ((expectedCasts - actualCasts) / expectedCasts) * 100;
 
   return result;
 }
