@@ -34,7 +34,7 @@ function Header() {
         style={{ display: "flex", alignItems: "center", gap: 5 }}
       >
         <GithubIcon />
-        <Text size="sm">by TychoTa</Text>
+        <Text size="xs">by TychoTa</Text>
       </Anchor>
     </Group>
   );

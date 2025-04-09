@@ -59,7 +59,7 @@ export function ResultsChart({ results }: ResultsChartProps) {
       <Text size="lg" fw={600} mb="md">
         Simulation Results
       </Text>
-      <Box ref={ref} style={{ flexGrow: 1 }}>
+      <Box ref={ref} style={{ flexGrow: 1, minHeight: "330px" }}>
         {height > 0 && (
           <ResponsiveContainer width="100%" height={height}>
             <ComposedChart data={chartData}>
