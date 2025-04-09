@@ -22,7 +22,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "deploy": "gh-pages -d dist"
+    "deploy-gh": "gh-pages -d dist"
   },
   "dependencies": {
     "@mantine/charts": "^7.17.4",
