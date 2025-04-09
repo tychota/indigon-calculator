@@ -40,7 +40,7 @@ export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) 
           </Tooltip>
         </Flex>
 
-        <Flex justify="space-between" wrap="wrap" mt="xs">
+        <Flex justify="space-between" wrap="wrap">
           <Tooltip label="Highest bonus achieved during the simulation" withArrow>
             <Text size="sm">
               <b>Max Indigon Bonus:</b> {maxSpellDmg}%
@@ -54,8 +54,8 @@ export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) 
         </Flex>
 
         {/* A note about the estimated sustained bonus */}
-        <Flex justify="space-between" wrap="wrap" mt="xs">
-          <Text size="sm" mt="xs"></Text>
+        <Flex justify="space-between" wrap="wrap">
+          <Text size="sm"></Text>
           <Tooltip
             label="Estimated sustained bonus computed as Max Bonus multiplied by Effective Cast Rate divided by 100"
             withArrow
@@ -65,8 +65,6 @@ export function Recommendations({ analysis }: { analysis: SimulationAnalysis }) 
             </Text>
           </Tooltip>
         </Flex>
-
-        <Divider my="sm" />
       </Flex>
     </Alert>
   );

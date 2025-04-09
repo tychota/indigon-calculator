@@ -52,7 +52,23 @@ export function SimulationResults({ config }: { config: CombinedSettings }) {
           { label: "Chart", value: "chart" },
           { label: "Table", value: "table" },
         ]}
-        mb="sm"
+        radius="sm"
+        size="sm"
+        fullWidth
+        transitionDuration={150}
+        styles={(theme) => ({
+          root: {
+            backgroundColor: theme.colors.gray[3],
+            border: `1px solid ${theme.colors.gray[3]}`,
+            padding: 0,
+          },
+          label: {
+            fontWeight: 600,
+          },
+          indicator: {
+            boxShadow: theme.shadows.sm,
+          },
+        })}
       />
       <Box style={{ flexGrow: 1, overflow: "hidden" }}>
         {view === "chart" ? <ResultsChart results={results} /> : <ResultsTable results={results} />}

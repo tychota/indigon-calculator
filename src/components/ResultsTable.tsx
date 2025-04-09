@@ -65,7 +65,7 @@ export function ResultsTable({ results }: ResultsTableProps) {
     enableDensityToggle: false,
     enableRowVirtualization: true, // ⚡ virtualized rows
     layoutMode: "grid",
-    mantineTableContainerProps: { style: { maxHeight: 410 } },
+    mantineTableContainerProps: { style: { maxHeight: 380 } },
     mantineTableProps: {
       striped: "odd",
       withRowBorders: true,
